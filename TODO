@@ -16,3 +16,5 @@
   - > store
   - > component's props/ state
   - > Wrap App component with Provider
+
+☐ Run: npm start
