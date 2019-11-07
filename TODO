@@ -3,5 +3,16 @@
 ☐ React router
 ☐ React Redux
 ☐ JSS
+☐ Dynamic Layout Rendering using Context API
 
 - clean up
+- activate the sign in & register links
+☐ Create Dialog component
+☐ Add Component to main Layout
+☐ Create redux to manage Dialog visibility state
+  - > action
+  - > reducer
+  - > saga
+  - > store
+  - > component's props/ state
+  - > Wrap App component with Provider

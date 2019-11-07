@@ -4,10 +4,11 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mernstackman/mern_shop.git"
+    "url": "git+https://github.com/mernstackman/mernshop_front.git"
   },
   "dependencies": {
     "@material-ui/core": "^4.5.2",
+    "immer": "^5.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
