@@ -14,7 +14,7 @@ class TopBar extends Component {
             <AppBar className={classes.topBar}>
                 <ToolBar className={classes.toolBar}>
                     <div className={classes.authText + " " + classes.divTopBar}>
-                        <Link onClick={() => this.props.showAuth(false)} className={classes.authLink} id="btnSignIn">
+                        <Link onClick={() => this.props.showAuth(true)} className={classes.authLink} id="btnSignIn">
                             Sign In
                         </Link>
                         <span>|</span>

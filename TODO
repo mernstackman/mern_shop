@@ -5,16 +5,18 @@
 ☐ JSS
 ☐ Dynamic Layout Rendering using Context API
 
-- clean up
-- activate the sign in & register links
-☐ Create Dialog component
-☐ Add Component to main Layout
-☐ Create redux to manage Dialog visibility state
-  - > action
-  - > reducer
-  - > saga
-  - > store
-  - > component's props/ state
-  - > Wrap App component with Provider
+    - clean up
+    - activate the sign in & register links
+    ☐ Create Dialog component
+    ☐ Add Component to main Layout
+    ☐ Create redux to manage Dialog visibility state
+    - > action
+    - > reducer
+    - > saga
+    - > store
+    - > component's props/ state
+    - > Wrap App component with Provider
 
-☐ Run: npm start
+    ☐ Run: npm start
+
+    ☐ Hide popup

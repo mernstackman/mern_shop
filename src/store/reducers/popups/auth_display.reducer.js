@@ -12,6 +12,9 @@ const authDisplayReducer = (state = initialState, action) =>
             case Actions.SHOW_AUTH:
                 draft.open = true;
                 break;
+            case Actions.HIDE_POPUP:
+                draft.open = false;
+                break;
         }
     });
 export default authDisplayReducer;
