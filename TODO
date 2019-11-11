@@ -20,3 +20,20 @@
     ☐ Run: npm start
 
     ☐ Hide popup
+    ✘ Implement JSS to escape the ugly () --parentheses-- in generated class names of material ui @cancelled(19-11-08 08:45)
+        ✘ npm i jss jss-extend react-jss @cancelled(19-11-08 08:45)
+
+    ☐ Implement Register and Login Feature
+        - Create Register form
+            - > Change to Formik later
+            - > https://jaredpalmer.com/formik/docs/tutorial
+            - > Use useField() to create text field
+                - https://jaredpalmer.com/formik/docs/api/useField
+                - https://github.com/yibsonalexis/React-Form-Formik-Yup-MaterialUI-GraphQL/blob/master/src/components/customerForm.js
+            - > Formik input change handler
+        - Apply register form to the pop up container
+        - Create Login form
+            - > Change to Formik later
+        - Apply Login form to the pop up container
+
+    ☐ reselect library

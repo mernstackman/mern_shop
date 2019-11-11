@@ -41,7 +41,7 @@ const mapDispatchToProps = {
 
 export default withStyles(styles, { withTheme: true })(
     connect(
-        "",
+        null,
         mapDispatchToProps
     )(TopBar)
 );
