@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, InputAdornment, withStyles } from "@material-ui/core";
+import { InputAdornment, withStyles } from "@material-ui/core";
+import Button from "../../../../components/Button/StyledButton";
 import EmailIcon from "@material-ui/icons/Email";
 import PasswordIcon from "@material-ui/icons/VpnKey";
 import NameIcon from "@material-ui/icons/Person";
@@ -25,7 +26,7 @@ class RegisterForm extends Component {
     render() {
         return (
             <div className="w-full flex flex-row justify-center">
-                <Form id="registrationForm" autoComplete="off">
+                <Form id="registrationForm" onSubmit={this.props.handleSubmit}>
                     <TextFieldFormik
                         name="username"
                         type="text"
@@ -33,29 +34,100 @@ class RegisterForm extends Component {
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
+                                    <NameIcon className="text-20" color="action" />
+                                </InputAdornment>
+                            ),
+                        }}
+                        variant="outlined"
+                        required
+                        fullWidth
+                    />
+
+                    <TextFieldFormik
+                        name="email"
+                        type="text"
+                        label="Email"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
                                     <EmailIcon className="text-20" color="action" />
                                 </InputAdornment>
                             ),
                         }}
+                        variant="outlined"
                         required
-                        helperText="required"
+                        fullWidth
                     />
-                    {/*
-                    <TexfieldFormik name="email" type="text" label="Email"></TexfieldFormik>
-                    <TexfieldFormik name="password" type="text" label="Password"></TexfieldFormik>
-                    <TexfieldFormik name="password_confirm" type="text" label="Confirm password"></TexfieldFormik> 
-                    <Button>Register</Button>                    
-                    */}
+
+                    <TextFieldFormik
+                        name="password"
+                        type="password"
+                        label="Password"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <PasswordIcon className="text-20" color="action" />
+                                </InputAdornment>
+                            ),
+                        }}
+                        variant="outlined"
+                        required
+                        fullWidth
+                    />
+
+                    <TextFieldFormik
+                        name="password_confirm"
+                        type="password"
+                        label="Confirm Password"
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <PasswordIcon className="text-20" color="action" />
+                                </InputAdornment>
+                            ),
+                        }}
+                        variant="outlined"
+                        required
+                        fullWidth
+                    />
+
+                    <Button
+                        fullWidth
+                        type="submit"
+                        variant="contained"
+                        color="primary"
+                        value="legacy"
+                        aria-label="register"
+                    >
+                        Register
+                    </Button>
                 </Form>
             </div>
         );
     }
 }
 
-const initialValues = { username: "OK" };
+/* OPTIONS */
 
-const RegisterValidation = yup.object().shape({
-    username: yup.string().required(),
+const validationSchema = yup.object().shape({
+    username: yup
+        .string()
+        // .matches()
+        .trim()
+        .required(),
+    email: yup
+        .string()
+        // .matches()
+        .trim()
+        .required(),
+    password: yup
+        .string()
+        // .matches()
+        .required(),
+    password_confirm: yup
+        .string()
+        // .matches()
+        .required(),
 });
 
 /*
@@ -67,7 +139,19 @@ const mapPropsToValues = props => ({
     username: "",
 });
 
-const options = { mapPropsToValues, validationSchema: RegisterValidation };
+const handleSubmit = (values, { setSubmitting }) => {
+    setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        setSubmitting(false);
+    }, 1000);
+};
+
+// Tie the options
+const options = {
+    handleSubmit,
+    mapPropsToValues,
+    validationSchema,
+};
 
 const RegistrationForm = withFormik(options)(RegisterForm);
 

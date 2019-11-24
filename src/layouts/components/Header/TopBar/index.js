@@ -14,17 +14,17 @@ class TopBar extends Component {
             <AppBar className={classes.topBar}>
                 <ToolBar className={classes.toolBar}>
                     <div className={classes.authText + " " + classes.divTopBar}>
-                        <Link onClick={() => this.props.showAuth(true)} className={classes.authLink} id="btnSignIn">
+                        {/*  <Link onClick={() => this.props.showAuth(true)} className={classes.authLink} id="btnSignIn">
                             Sign In
                         </Link>
-                        <span>|</span>
+                        <span>|</span> */}
                         <Link onClick={() => this.props.showAuth(true)} className={classes.authLink} id="btnRegister">
                             Register
                         </Link>
                     </div>
-                    <div className={classes.authText + " " + classes.divTopBar}>
+                    {/* <div className={classes.authText + " " + classes.divTopBar}>
                         <span>Cart</span>
-                    </div>
+                    </div> */}
                 </ToolBar>
             </AppBar>
         );
@@ -39,9 +39,4 @@ const mapDispatchToProps = {
     showAuth,
 };
 
-export default withStyles(styles, { withTheme: true })(
-    connect(
-        null,
-        mapDispatchToProps
-    )(TopBar)
-);
+export default withStyles(styles, { withTheme: true })(connect(null, mapDispatchToProps)(TopBar));

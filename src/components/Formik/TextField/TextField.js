@@ -37,6 +37,7 @@ class TextField extends Component {
                 helperText={message || helperText}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
+                margin="normal"
             >
                 {children}
             </MTextField>
@@ -44,15 +45,13 @@ class TextField extends Component {
     }
 }
 
-if (process.env.NODE_ENV !== "production") {
-    TextField.propTypes = {
-        field: fieldShape.isRequired,
-        form: formShape.isRequired,
-        helperText: PropTypes.node,
-        children: PropTypes.node,
-        onChange: PropTypes.func,
-        onBlur: PropTypes.func,
-    };
-}
+TextField.propTypes = {
+    field: fieldShape.isRequired,
+    form: formShape.isRequired,
+    helperText: PropTypes.node,
+    children: PropTypes.node,
+    onChange: PropTypes.func,
+    onBlur: PropTypes.func,
+};
 
 export default TextField;

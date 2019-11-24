@@ -11,10 +11,8 @@ const TexfieldFormik = ({ children, ...props }) => {
     );
 };
 
-if (process.env.NODE_ENV !== "production") {
-    TexfieldFormik.propTypes = {
-        children: PropTypes.node,
-    };
-}
+TexfieldFormik.propTypes = {
+    children: PropTypes.node,
+};
 
 export default TexfieldFormik;

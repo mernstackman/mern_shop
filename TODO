@@ -31,6 +31,13 @@
                 - https://jaredpalmer.com/formik/docs/api/useField
                 - https://github.com/yibsonalexis/React-Form-Formik-Yup-MaterialUI-GraphQL/blob/master/src/components/customerForm.js
             - > Formik input change handler
+            - > Theming
+                - Use material ui theme generator
+            - > Add other text fields
+            - > See Material UI example
+            - > Reduce pop up's width
+            - > form title/ header
+
         - Apply register form to the pop up container
         - Create Login form
             - > Change to Formik later
