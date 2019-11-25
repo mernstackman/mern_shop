@@ -43,7 +43,7 @@ class AuthDialog extends Component {
                                 <LockOutlinedIcon />
                             </Avatar>
                             <Typography component="h1" variant="h5">
-                                Sign up
+                                Register
                             </Typography>
                         </Container>
 

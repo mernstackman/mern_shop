@@ -25,11 +25,11 @@ const Container = styled.div`
       }
   }}
 
-  ${props => props.containerStyle && styleToCss(props.containerStyle)}
+  /* ${props => props.containerStyle && styleToCss(props.containerStyle)} */
 `;
 
 Container.propTypes = {
-    containerStyle: PropTypes.object,
+    // containerStyle: PropTypes.object,
     display: PropTypes.string,
     margin: PropTypes.string,
     square: PropTypes.number,

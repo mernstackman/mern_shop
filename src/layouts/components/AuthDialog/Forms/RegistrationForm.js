@@ -8,20 +8,11 @@ import TextFieldFormik from "../../../../components/Formik/TextField/TextFieldFo
 import { Form, withFormik } from "formik";
 import * as yup from "yup";
 import styles from "./styles";
+import { emailRegex, userRegex, passRegex } from "../../../../regex";
 
 class RegisterForm extends Component {
-    // Get reference to the DOM
-    // form = React.createRef();
-    onSubmit = () => {
-        // console.log(this.form.getModel().name);
-    };
-
     enableButton = () => {};
     disableButton = () => {};
-
-    /*     changeValue = () => {
-        alert("value change triggered!");
-    }; */
 
     render() {
         return (
@@ -112,21 +103,24 @@ class RegisterForm extends Component {
 const validationSchema = yup.object().shape({
     username: yup
         .string()
-        // .matches()
+        .matches(userRegex, "Username cannot contain restricted special character")
         .trim()
         .required(),
     email: yup
         .string()
-        // .matches()
+        .matches(emailRegex, "Please enter valid email address")
         .trim()
         .required(),
     password: yup
         .string()
-        // .matches()
+        .matches(
+            passRegex,
+            "Should at least 6 characters long, contains a special character, number, uppercase and lowercase letter"
+        )
         .required(),
     password_confirm: yup
         .string()
-        // .matches()
+        .oneOf([yup.ref("password"), null], "Password not match")
         .required(),
 });
 
@@ -137,11 +131,31 @@ const validationSchema = yup.object().shape({
  */
 const mapPropsToValues = props => ({
     username: "",
+    email: "",
+    password: "",
+    password_confirm: "",
 });
 
+const trimVal = obj => {
+    if (typeof obj !== "object") {
+        return;
+    }
+
+    let value;
+    let output = {};
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            value = obj[key].trim();
+            output[key] = value;
+        }
+    }
+    return output;
+};
+
 const handleSubmit = (values, { setSubmitting }) => {
+    const userData = trimVal(values);
     setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
+        alert(JSON.stringify(userData, null, 2));
         setSubmitting(false);
     }, 1000);
 };

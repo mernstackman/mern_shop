@@ -37,6 +37,9 @@
             - > See Material UI example
             - > Reduce pop up's width
             - > form title/ header
+            - > validate submitted data
+            - > yup regex match()
+            - > Save user to database
 
         - Apply register form to the pop up container
         - Create Login form
@@ -44,3 +47,4 @@
         - Apply Login form to the pop up container
 
     ☐ reselect library
+    ☐ immer
