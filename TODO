@@ -39,7 +39,18 @@
             - > form title/ header
             - > validate submitted data
             - > yup regex match()
-            - > Save user to database
+            - > Save user to database with redux saga
+                - create system config
+                - create api fetch functions
+                - create action
+                - create reducer
+                - create saga
+                - apply to store
+                - apply to front end
+             ☐ BUGS:
+                - Late response
+                    - The received response is based on the previously submitted data
+                    - Test: - if the values is different after changed on form
 
         - Apply register form to the pop up container
         - Create Login form

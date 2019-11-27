@@ -27,6 +27,7 @@
         "redux-saga": "^1.1.1",
         "style-object-to-css-string": "^1.0.1",
         "styled-components": "^4.4.1",
+        "typeface-lato": "0.0.75",
         "typeface-roboto": "0.0.75",
         "yup": "^0.27.0"
     },

@@ -1,5 +1,5 @@
 import React from "react";
-import "typeface-roboto";
+import "typeface-lato";
 import Provider from "react-redux/es/components/Provider";
 import store from "./store";
 import LayoutRenderer from "./layouts/LayoutRenderer";

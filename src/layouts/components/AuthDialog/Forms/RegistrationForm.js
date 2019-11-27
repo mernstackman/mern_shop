@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { InputAdornment, withStyles } from "@material-ui/core";
+import styles from "./styles";
 import Button from "../../../../components/Button/StyledButton";
 import EmailIcon from "@material-ui/icons/Email";
 import PasswordIcon from "@material-ui/icons/VpnKey";
@@ -7,8 +8,9 @@ import NameIcon from "@material-ui/icons/Person";
 import TextFieldFormik from "../../../../components/Formik/TextField/TextFieldFormik";
 import { Form, withFormik } from "formik";
 import * as yup from "yup";
-import styles from "./styles";
 import { emailRegex, userRegex, passRegex } from "../../../../regex";
+import { connect } from "react-redux";
+import { registerUser } from "../../../../store/actions/user";
 
 class RegisterForm extends Component {
     enableButton = () => {};
@@ -152,12 +154,15 @@ const trimVal = obj => {
     return output;
 };
 
-const handleSubmit = (values, { setSubmitting }) => {
+const handleSubmit = (values, { setSubmitting, props }) => {
     const userData = trimVal(values);
-    setTimeout(() => {
+    props.registerUser(userData);
+    console.log(userData);
+    console.log(props);
+    /*     setTimeout(() => {
         alert(JSON.stringify(userData, null, 2));
         setSubmitting(false);
-    }, 1000);
+    }, 1000); */
 };
 
 // Tie the options
@@ -169,4 +174,11 @@ const options = {
 
 const RegistrationForm = withFormik(options)(RegisterForm);
 
-export default withStyles(styles)(RegistrationForm);
+/* REDUX */
+const mapStateToProps = ({ user }) => ({
+    data: user.register.data,
+    isLoading: user.register.isLoading,
+    error: user.register.error,
+});
+
+export default withStyles(styles)(connect(mapStateToProps, { registerUser })(RegistrationForm));

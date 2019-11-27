@@ -1,8 +1,7 @@
 import * as reduxModule from "redux";
-import { compose, createStore } from "redux";
-// import { applyMiddleWare, compose, createStore } from "redux";
-// import { createSagaMiddleware } from "redux-saga";
-// import rootSaga from "./sagas";
+import { applyMiddleware, compose, createStore } from "redux";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./sagas";
 import createReducer from "./reducers";
 
 reduxModule.__DO_NOT_USE__ActionTypes.REPLACE = "@@redux/INIT";
@@ -12,9 +11,8 @@ const composeEnhancers =
         ? window.__REDUX_DEVTOOLS_EXTENSIONS_COMPOSE__({})
         : compose;
 
-const enhancer = composeEnhancers();
-// const sagaMiddleware = createSagaMiddleware();
-// const enhancer = composeEnhancers(applyMiddleWare(sagaMiddleware));
+const sagaMiddleware = createSagaMiddleware();
+const enhancer = composeEnhancers(applyMiddleware(sagaMiddleware));
 
 const store = createStore(createReducer(), enhancer);
 
@@ -29,6 +27,6 @@ export const injectReducer = (key, reducer) => {
     return store;
 };
 
-// sagaMiddleware.run(rootSaga);
+sagaMiddleware.run(rootSaga);
 
 export default store;

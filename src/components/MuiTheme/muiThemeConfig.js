@@ -2,7 +2,7 @@ const muiThemeConfig = {
     default: {
         palette: {
             primary: {
-                main: "#f3b93f",
+                main: "#00793d",
             },
             secondary: {
                 main: "#333333",
@@ -14,7 +14,7 @@ const muiThemeConfig = {
             dark: "#333333",
         },
         typography: {
-            fontFamily: ["Roboto"].join(","),
+            fontFamily: ["Lato"].join(","),
             button: { textTransform: "none" },
         },
         overrides: {

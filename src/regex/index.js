@@ -5,4 +5,6 @@ export const passRegex = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-
 
 // Should not contain special characters
 export const userRegex0 = /[$&+,:;=\\\\?@#|/\'\"\`\~<>.^*()%!-\s]/;
+
+// Can contains only listed characters
 export const userRegex = /^[A-Za-z0-9_]*$/;
