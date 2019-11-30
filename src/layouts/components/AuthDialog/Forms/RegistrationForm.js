@@ -11,15 +11,37 @@ import * as yup from "yup";
 import { emailRegex, userRegex, passRegex } from "../../../../regex";
 import { connect } from "react-redux";
 import { registerUser } from "../../../../store/actions/user";
+import isEmpty from "lodash/isEmpty";
+import Wave from "../../../../components/Loaders/Wave";
+
+const ButtonLoader = () => (
+    <Wave size={25}>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </Wave>
+);
 
 class RegisterForm extends Component {
-    enableButton = () => {};
-    disableButton = () => {};
+    // eslint-disable-next-line no-useless-constructor
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.values !== this.props.values && this.props.error) {
+            console.log(this.props.error);
+            this.props.registerUser();
+        }
+    }
 
     render() {
+        // console.log("From render method:", this.props);
+        const { isLoading, error, errors, isSubmitting, dirty, handleSubmit } = this.props;
         return (
             <div className="w-full flex flex-row justify-center">
-                <Form id="registrationForm" onSubmit={this.props.handleSubmit}>
+                <Form id="registrationForm" onSubmit={handleSubmit}>
                     <TextFieldFormik
                         name="username"
                         type="text"
@@ -91,8 +113,10 @@ class RegisterForm extends Component {
                         color="primary"
                         value="legacy"
                         aria-label="register"
+                        style={{ height: "35px" }}
+                        disabled={isSubmitting || !isEmpty(errors) || Boolean(error) || !dirty || isLoading}
                     >
-                        Register
+                        {isLoading ? <ButtonLoader></ButtonLoader> : "Register"}
                     </Button>
                 </Form>
             </div>
@@ -157,12 +181,7 @@ const trimVal = obj => {
 const handleSubmit = (values, { setSubmitting, props }) => {
     const userData = trimVal(values);
     props.registerUser(userData);
-    console.log(userData);
-    console.log(props);
-    /*     setTimeout(() => {
-        alert(JSON.stringify(userData, null, 2));
-        setSubmitting(false);
-    }, 1000); */
+    setSubmitting(false);
 };
 
 // Tie the options
@@ -170,6 +189,7 @@ const options = {
     handleSubmit,
     mapPropsToValues,
     validationSchema,
+    enableReinitialize: true,
 };
 
 const RegistrationForm = withFormik(options)(RegisterForm);

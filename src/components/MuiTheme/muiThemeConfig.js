@@ -1,3 +1,5 @@
+import { height } from "@material-ui/system";
+
 const muiThemeConfig = {
     default: {
         palette: {
@@ -24,6 +26,9 @@ const muiThemeConfig = {
                 },
             },
             // MuiFormControl: { root: { marginTop: "10px" } },
+            /*  MuiButton: {
+                label: { height: "100%" },
+            }, */
         },
     },
 };

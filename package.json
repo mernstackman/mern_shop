@@ -17,6 +17,8 @@
         "jss": "^10.0.0",
         "jss-extend": "^6.2.0",
         "lodash": "^4.17.15",
+        "memoize-one": "^5.1.1",
+        "polished": "^3.4.2",
         "prop-types": "^15.7.2",
         "react": "^16.11.0",
         "react-dom": "^16.11.0",

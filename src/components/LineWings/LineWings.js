@@ -11,7 +11,7 @@ const LineWings = styled.div`
         box-sizing: border-box;
         height: 2px;
         width: 30%;
-        background: #c0c0c0;
+        background: #6e6e6e;
         position: absolute;
         top: 50%;
         z-index: 2;

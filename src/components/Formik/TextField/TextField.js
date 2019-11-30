@@ -5,6 +5,10 @@ import MTextField from "@material-ui/core/TextField";
 import { fieldShape, formShape } from "./ms_proptypes";
 
 class TextField extends Component {
+    // eslint-disable-next-line no-useless-constructor
+    /*     constructor(props) {
+        super(props);
+    } */
     handleChange = e => {
         this.props.field.onChange(e);
         if (this.props.onChange) {
@@ -16,6 +20,13 @@ class TextField extends Component {
         this.props.field.onBlur(e);
         if (this.props.onBlur) {
             this.props.onBlur(e);
+        }
+    };
+
+    handleFocus = e => {
+        // this.props.field.onFocus(e);
+        if (this.props.onFocus) {
+            this.props.onFocus(e);
         }
     };
 
@@ -37,6 +48,7 @@ class TextField extends Component {
                 helperText={message || helperText}
                 onChange={this.handleChange}
                 onBlur={this.handleBlur}
+                onFocus={this.handleFocus}
                 margin="normal"
             >
                 {children}

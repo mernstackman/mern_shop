@@ -47,10 +47,24 @@
                 - create saga
                 - apply to store
                 - apply to front end
+                - see: https://github.com/wtjs/what-the-splash/tree/master/src
+                - do something if submission success/ redirect after submission
+                - Create wave animation
+                - display error from server
+
+             ☐ Reset error value to null
+                - In the registration.saga:
+                    - > throw custom error if action.payload is undefined
+                    - > set error message to null if custom error is thrown
+                    - > call registerUser action with empty or undefined argument onBlur
+                    - > use memoization to whether recall onBlur the registerUser action or not
+
+
              ☐ BUGS:
-                - Late response
+                - Late response [Formik handlesubmit props not in sync with component's props]
                     - The received response is based on the previously submitted data
                     - Test: - if the values is different after changed on form
+                    - Update formik props
 
         - Apply register form to the pop up container
         - Create Login form

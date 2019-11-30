@@ -2,7 +2,7 @@ import { serverBaseUrl } from "../config/core";
 
 /* User registration */
 export const register = data => {
-    return fetch(serverBaseUrl + "/user/register", {
+    /*     return fetch(serverBaseUrl + "/user/register", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -12,9 +12,9 @@ export const register = data => {
     })
         .then(response => response.json())
         .then(json => json)
-        .catch(error => error);
+        .catch(error => error); */
 
-    /*     return new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         fetch(serverBaseUrl + "/user/register", {
             method: "POST",
             headers: {
@@ -23,7 +23,9 @@ export const register = data => {
             },
             body: JSON.stringify(data),
         })
-            .then(response => resolve(response.json()))
+            .then(response => {
+                resolve(response.json());
+            })
             .catch(error => reject(error));
-    }); */
+    });
 };
