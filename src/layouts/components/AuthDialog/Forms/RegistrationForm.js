@@ -30,15 +30,54 @@ class RegisterForm extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        if (prevProps.values !== this.props.values && this.props.error) {
-            console.log(this.props.error);
+        // error is server error
+        // errors is formik error
+        const { error, errors, status, values, setStatus } = this.props;
+
+        // if server send error and
+        // current status error is null
+        // and afterSubmit flag is true
+        if (error && !status.error && status.afterSubmit) {
+            // set server error to status error value
+            // set status after submit to false
+            setStatus({ error, afterSubmit: false });
+        }
+
+        // If server send error and
+        // current status error is not null and
+        // values is changed
+        if (error && status.error && prevProps.values !== values && !status.afterSubmit) {
+            // set error status to null
+            setStatus({ error: null });
+        }
+
+        // if server send error and
+        // current status error is not null and
+        // and the error from server is different than the error status
+        // and after form submission
+        if (error && status.error && error !== status.error && status.afterSubmit) {
+            // renew error status
+            setStatus({ error });
+        }
+
+        // Try to use mapPropsToErrors to replace this anti-unidirectional data flow
+        // Pass server error to formik errors instead of using server error directly to component
+        /*         if (error && prevProps.values !== values) {
             this.props.registerUser();
+        } */
+
+        // If server send error
+        // and server error contain error property
+        // and previous formik errors is equal to current formik error
+        // and after user submit the form
+        if (error && error.errors && prevProps.errors === errors && status.afterSubmit) {
+            this.props.setFieldError(error.errors[0].path, error.errors[0].message);
         }
     }
 
     render() {
-        // console.log("From render method:", this.props);
-        const { isLoading, error, errors, isSubmitting, dirty, handleSubmit } = this.props;
+        const { isLoading, error, errors, isSubmitting, dirty, handleSubmit, status } = this.props;
+
         return (
             <div className="w-full flex flex-row justify-center">
                 <Form id="registrationForm" onSubmit={handleSubmit}>
@@ -114,7 +153,13 @@ class RegisterForm extends Component {
                         value="legacy"
                         aria-label="register"
                         style={{ height: "35px" }}
-                        disabled={isSubmitting || !isEmpty(errors) || Boolean(error) || !dirty || isLoading}
+                        disabled={
+                            isSubmitting ||
+                            !isEmpty(errors) ||
+                            /* Boolean(error) */ Boolean(status.error) ||
+                            !dirty ||
+                            isLoading
+                        }
                     >
                         {isLoading ? <ButtonLoader></ButtonLoader> : "Register"}
                     </Button>
@@ -178,18 +223,23 @@ const trimVal = obj => {
     return output;
 };
 
-const handleSubmit = (values, { setSubmitting, props }) => {
+const handleSubmit = async (values, { setSubmitting, setStatus, props }) => {
     const userData = trimVal(values);
     props.registerUser(userData);
     setSubmitting(false);
+    setStatus({ afterSubmit: true });
 };
 
+const mapPropsToStatus = props => {
+    return { error: null };
+};
 // Tie the options
 const options = {
     handleSubmit,
     mapPropsToValues,
     validationSchema,
     enableReinitialize: true,
+    mapPropsToStatus,
 };
 
 const RegistrationForm = withFormik(options)(RegisterForm);
