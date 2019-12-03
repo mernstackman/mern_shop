@@ -1,4 +1,4 @@
-import { height } from "@material-ui/system";
+import red from "@material-ui/core/colors/red";
 
 const muiThemeConfig = {
     default: {
@@ -14,6 +14,7 @@ const muiThemeConfig = {
                 secondary: "#333333",
             },
             dark: "#333333",
+            error: red,
         },
         typography: {
             fontFamily: ["Lato"].join(","),

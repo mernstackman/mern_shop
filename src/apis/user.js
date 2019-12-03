@@ -24,6 +24,9 @@ export const register = data => {
             body: JSON.stringify(data),
         })
             .then(response => {
+                // this return server response
+                // console.log(response);
+                //  this return response result
                 resolve(response.json());
             })
             .catch(error => reject(error));

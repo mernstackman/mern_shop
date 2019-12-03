@@ -32,7 +32,7 @@ class RegisterForm extends Component {
     componentDidUpdate(prevProps) {
         // error is server error
         // errors is formik error
-        const { error, errors, status, values, setStatus } = this.props;
+        const { error, errors, status, values, setStatus, data } = this.props;
 
         // if server send error and
         // current status error is null
@@ -60,12 +60,6 @@ class RegisterForm extends Component {
             setStatus({ error });
         }
 
-        // Try to use mapPropsToErrors to replace this anti-unidirectional data flow
-        // Pass server error to formik errors instead of using server error directly to component
-        /*         if (error && prevProps.values !== values) {
-            this.props.registerUser();
-        } */
-
         // If server send error
         // and server error contain error property
         // and previous formik errors is equal to current formik error
@@ -73,98 +67,111 @@ class RegisterForm extends Component {
         if (error && error.errors && prevProps.errors === errors && status.afterSubmit) {
             this.props.setFieldError(error.errors[0].path, error.errors[0].message);
         }
+
+        if (!isEmpty(data) && data.success) {
+            console.log(data.message);
+        }
     }
 
+    disableButton = () => {
+        const {
+            isLoading,
+            errors,
+            isSubmitting,
+            dirty,
+            status,
+            data: { success },
+        } = this.props;
+        return success || isSubmitting || !isEmpty(errors) || Boolean(status.error) || !dirty || isLoading;
+    };
+
     render() {
-        const { isLoading, error, errors, isSubmitting, dirty, handleSubmit, status } = this.props;
+        const { isLoading, handleSubmit, status, classes } = this.props;
 
         return (
-            <div className="w-full flex flex-row justify-center">
-                <Form id="registrationForm" onSubmit={handleSubmit}>
-                    <TextFieldFormik
-                        name="username"
-                        type="text"
-                        label="Username"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <NameIcon className="text-20" color="action" />
-                                </InputAdornment>
-                            ),
-                        }}
-                        variant="outlined"
-                        required
-                        fullWidth
-                    />
+            <Form id="registrationForm" onSubmit={handleSubmit}>
+                {status.error && (
+                    <div className={classes.errorMessage}>
+                        Oopss..! Something is happening with the server. Please try again later.
+                    </div>
+                )}
+                <TextFieldFormik
+                    name="username"
+                    type="text"
+                    label="Username"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <NameIcon className="text-20" color="action" />
+                            </InputAdornment>
+                        ),
+                    }}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
 
-                    <TextFieldFormik
-                        name="email"
-                        type="text"
-                        label="Email"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <EmailIcon className="text-20" color="action" />
-                                </InputAdornment>
-                            ),
-                        }}
-                        variant="outlined"
-                        required
-                        fullWidth
-                    />
+                <TextFieldFormik
+                    name="email"
+                    type="text"
+                    label="Email"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <EmailIcon className="text-20" color="action" />
+                            </InputAdornment>
+                        ),
+                    }}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
 
-                    <TextFieldFormik
-                        name="password"
-                        type="password"
-                        label="Password"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <PasswordIcon className="text-20" color="action" />
-                                </InputAdornment>
-                            ),
-                        }}
-                        variant="outlined"
-                        required
-                        fullWidth
-                    />
+                <TextFieldFormik
+                    name="password"
+                    type="password"
+                    label="Password"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <PasswordIcon className="text-20" color="action" />
+                            </InputAdornment>
+                        ),
+                    }}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
 
-                    <TextFieldFormik
-                        name="password_confirm"
-                        type="password"
-                        label="Confirm Password"
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <PasswordIcon className="text-20" color="action" />
-                                </InputAdornment>
-                            ),
-                        }}
-                        variant="outlined"
-                        required
-                        fullWidth
-                    />
+                <TextFieldFormik
+                    name="password_confirm"
+                    type="password"
+                    label="Confirm Password"
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <PasswordIcon className="text-20" color="action" />
+                            </InputAdornment>
+                        ),
+                    }}
+                    variant="outlined"
+                    required
+                    fullWidth
+                />
 
-                    <Button
-                        fullWidth
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        value="legacy"
-                        aria-label="register"
-                        style={{ height: "35px" }}
-                        disabled={
-                            isSubmitting ||
-                            !isEmpty(errors) ||
-                            /* Boolean(error) */ Boolean(status.error) ||
-                            !dirty ||
-                            isLoading
-                        }
-                    >
-                        {isLoading ? <ButtonLoader></ButtonLoader> : "Register"}
-                    </Button>
-                </Form>
-            </div>
+                <Button
+                    fullWidth
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    value="legacy"
+                    aria-label="register"
+                    style={{ height: "35px" }}
+                    disabled={this.disableButton()}
+                >
+                    {isLoading ? <ButtonLoader></ButtonLoader> : "Register"}
+                </Button>
+            </Form>
         );
     }
 }

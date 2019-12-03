@@ -48,9 +48,9 @@
                 - apply to store
                 - apply to front end
                 - see: https://github.com/wtjs/what-the-splash/tree/master/src
-                - do something if submission success/ redirect after submission
                 - Create wave animation
                 - display error from server
+                - do something if submission success/ redirect after submission
 
              ☐ Reset error value to null
                 - In the registration.saga:
