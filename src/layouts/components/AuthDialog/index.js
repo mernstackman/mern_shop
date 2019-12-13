@@ -10,29 +10,43 @@ import { connect } from "react-redux";
 import { hidePopup } from "../../../store/actions/popups/auth_display.actions";
 import Container from "../../../components/Container";
 
-const PaperComponent = props => <Paper {...props} style={{ width: "auto", maxWidth: "450px", height: "auto" }} />;
+const PaperComponent = props => (
+    /* If the screen size is more than 1000px, then the component's width will be 35% of 1000px */
+    <Paper {...props} style={{ width: "calc((1000px - 100%) * 1000)", maxWidth: "100%", minWidth: "35%", margin: 0 }} />
+);
 
 const styles = theme => ({
     avatar: {
         backgroundColor: "#bd0606",
     },
+    messageText: {
+        textAlign: "center",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "column",
+        "& .MuiTypography-root": {
+            color: theme.palette.primary.main,
+        },
+    },
 });
 
 class AuthDialog extends Component {
-    state = {
-        open: false,
-    };
+    // eslint-disable-next-line no-useless-constructor
+    constructor(props) {
+        super(props);
+    }
 
     handleClose = () => {
         this.props.hidePopup();
     };
 
     render() {
-        const { classes } = this.props;
+        const { classes, open, registration } = this.props;
+        console.log(registration);
         return (
             <div>
                 <Dialog
-                    open={this.props.open}
+                    open={open}
                     onClose={this.handleClose}
                     PaperComponent={PaperComponent}
                     aria-labelledby="auth-dialog-title"
@@ -47,8 +61,16 @@ class AuthDialog extends Component {
                             </Typography>
                         </Container>
 
-                        <div className="w-full flex flex-grow flex-col">
-                            <RegistrationForm></RegistrationForm>
+                        <div className="form-wrapper">
+                            {!registration.success && <RegistrationForm />}
+                            {registration.success && (
+                                <div className={classes.messageText}>
+                                    <Typography component="h4" variant="h6">
+                                        Success
+                                    </Typography>
+                                    <span> {/* message from server */}</span>
+                                </div>
+                            )}
                         </div>
                     </DialogContent>
                 </Dialog>
@@ -57,9 +79,11 @@ class AuthDialog extends Component {
     }
 }
 
-const mapStateToProps = ({ popups }) => {
+const mapStateToProps = ({ user, popups }) => {
+    // console.log(state);
     return {
         open: popups.authDisplayReducer.open,
+        registration: user.register.data,
     };
 };
 

@@ -51,7 +51,14 @@
                 - Create wave animation
                 - display error from server
                 - do something if submission success/ redirect after submission
+                - email validation back end
+                    - > send email
+                    - > confirm email
+                    - > resend confirmation
 
+                ☐ Use fake json server for quick server mock ups
+                - https://medium.com/backticks-tildes/building-a-mock-rest-api-with-json-server-812ed3e6036a
+                
              ☐ Reset error value to null
                 - In the registration.saga:
                     - > throw custom error if action.payload is undefined

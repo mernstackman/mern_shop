@@ -39,7 +39,8 @@
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "tailwind": "./node_modules/.bin/tailwind build ./src/styles/tailwind/tailwind.css -c tailwind.config.js -o ./src/styles/tailwind.css",
-        "storybook": "start-storybook -p 6006"
+        "storybook": "start-storybook -p 6006",
+        "mock:api": "json-server --watch db/db.json --port 80"
     },
     "eslintConfig": {
         "extends": "react-app"
@@ -65,7 +66,7 @@
         "@storybook/addons": "^5.2.6",
         "@storybook/react": "^5.2.6",
         "eslint": "^6.6.0",
-        "prettier": "^1.19.1",
+        "prettier": "1.19.1",
         "tailwindcss": "^1.1.3"
     }
 }

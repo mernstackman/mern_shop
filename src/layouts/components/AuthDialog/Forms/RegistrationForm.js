@@ -68,6 +68,7 @@ class RegisterForm extends Component {
             this.props.setFieldError(error.errors[0].path, error.errors[0].message);
         }
 
+        // If registration succeed
         if (!isEmpty(data) && data.success) {
             console.log(data.message);
         }
@@ -86,7 +87,13 @@ class RegisterForm extends Component {
     };
 
     render() {
-        const { isLoading, handleSubmit, status, classes } = this.props;
+        const {
+            isLoading,
+            handleSubmit,
+            status,
+            classes,
+            data: { success },
+        } = this.props;
 
         return (
             <Form id="registrationForm" onSubmit={handleSubmit}>
