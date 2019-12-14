@@ -11,6 +11,7 @@ import * as yup from "yup";
 import { emailRegex, userRegex, passRegex } from "../../../../regex";
 import { connect } from "react-redux";
 import { registerUser } from "../../../../store/actions/user";
+import { sendVerificationEmail } from "../../../../store/actions/email";
 import isEmpty from "lodash/isEmpty";
 import Wave from "../../../../components/Loaders/Wave";
 
@@ -32,7 +33,7 @@ class RegisterForm extends Component {
     componentDidUpdate(prevProps) {
         // error is server error
         // errors is formik error
-        const { error, errors, status, values, setStatus, data } = this.props;
+        const { error, errors, status, values, setStatus, result } = this.props;
 
         // if server send error and
         // current status error is null
@@ -69,8 +70,10 @@ class RegisterForm extends Component {
         }
 
         // If registration succeed
-        if (!isEmpty(data) && data.success) {
-            console.log(data.message);
+        if (!isEmpty(result) && result.success && status.afterSubmit) {
+            // Send verification message
+            this.props.sendVerificationEmail(result.signup_data.email);
+            console.log(result.message);
         }
     }
 
@@ -81,7 +84,7 @@ class RegisterForm extends Component {
             isSubmitting,
             dirty,
             status,
-            data: { success },
+            result: { success },
         } = this.props;
         return success || isSubmitting || !isEmpty(errors) || Boolean(status.error) || !dirty || isLoading;
     };
@@ -92,7 +95,7 @@ class RegisterForm extends Component {
             handleSubmit,
             status,
             classes,
-            data: { success },
+            // result: { success },
         } = this.props;
 
         return (
@@ -259,10 +262,11 @@ const options = {
 const RegistrationForm = withFormik(options)(RegisterForm);
 
 /* REDUX */
-const mapStateToProps = ({ user }) => ({
-    data: user.register.data,
+const mapStateToProps = ({ user, email }) => ({
+    result: user.register.result,
     isLoading: user.register.isLoading,
     error: user.register.error,
+    // verifiyEmail: email.verify.result,
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { registerUser })(RegistrationForm));
+export default withStyles(styles)(connect(mapStateToProps, { registerUser, sendVerificationEmail })(RegistrationForm));

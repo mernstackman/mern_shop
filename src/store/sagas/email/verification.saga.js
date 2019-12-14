@@ -11,9 +11,9 @@ function* sendEmailVerification(action) {
         const data = yield call(SendEmail.verification, action.payload);
 
         // Throw error received from server
-        if (data.hasOwnProperty("errors")) {
+        /*         if (data.hasOwnProperty("errors")) {
             throw data;
-        }
+        } */
 
         yield put({ type: SEND_VERIFICATION_SUCCESS, payload: data });
     } catch (error) {

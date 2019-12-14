@@ -41,7 +41,8 @@ class AuthDialog extends Component {
     };
 
     render() {
-        const { classes, open, registration } = this.props;
+        const { classes, open, registration, verificationEmailDelivery, waitEmail } = this.props;
+        const { success, message } = verificationEmailDelivery;
         console.log(registration);
         return (
             <div>
@@ -68,7 +69,17 @@ class AuthDialog extends Component {
                                     <Typography component="h4" variant="h6">
                                         Success
                                     </Typography>
-                                    <span> {/* message from server */}</span>
+                                    {waitEmail && (
+                                        <div>
+                                            "Please wait! We are sending confirmation link to your email."
+                                            {/* Loading indicator here */}
+                                        </div>
+                                    )}
+                                    <span>
+                                        {success && message}
+                                        {!success &&
+                                            "Something went wrong when trying to send verification link to your email. Please make sure that you supply valid email address upon registration."}
+                                    </span>
                                 </div>
                             )}
                         </div>
@@ -79,11 +90,13 @@ class AuthDialog extends Component {
     }
 }
 
-const mapStateToProps = ({ user, popups }) => {
+const mapStateToProps = ({ user, popups, email }) => {
     // console.log(state);
     return {
         open: popups.authDisplayReducer.open,
-        registration: user.register.data,
+        registration: user.register.result,
+        verificationEmailDelivery: email.verify.result,
+        waitEmail: email.verify.isLoading,
     };
 };
 

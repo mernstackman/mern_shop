@@ -2,7 +2,7 @@ import produce from "immer";
 import * as Actions from "../../actions";
 
 const initialState = {
-    data: {},
+    result: {},
     isLoading: false,
     error: null,
 };
@@ -17,7 +17,7 @@ const verificatioReducer = (state = initialState, action) =>
                 break;
 
             case Actions.SEND_VERIFICATION_SUCCESS:
-                draft.data = action.payload;
+                draft.result = action.payload;
                 draft.isLoading = false;
                 draft.error = null;
                 break;

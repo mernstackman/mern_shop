@@ -79,4 +79,5 @@
         - Apply Login form to the pop up container
 
     ☐ reselect library
+        - Is a library to select and memoize "the properties from store" that only is required by a components so the data size is lightweight
     ☐ immer
